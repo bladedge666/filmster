@@ -9,6 +9,8 @@ gem 'pg', '~> 0.18'
 
 
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'devise'
+
 
 
 # Use Puma as the app server
