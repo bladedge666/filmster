@@ -1,0 +1,19 @@
+$brand-font: 'Amatica SC', cursive;
+$brand-font-alt: 'Risque';
+$primary-font: 'Overlock';
+
+html, body {
+  height: 100%;  
+  font-family: $primary-font;
+}
+
+.navbar-brand {
+  font-family: $brand-font-alt;
+  font-size: 45px;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+
+.navbar-right {
+  font-size: 30px;
+}
