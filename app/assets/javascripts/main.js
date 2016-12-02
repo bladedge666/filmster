@@ -1,25 +1,37 @@
+
 $(function(){
-  $.ajax({
-    url: 'http://www.omdbapi.com/?',
-    data: {"s": "superman"}
-  })
-  .done(function(data){
-    displayMovies(data);
+  let form = $('#movie-search');
+  form.submit(function(e){
+    e.preventDefault();
+
+    $.ajax({
+      url: 'http://www.omdbapi.com/?',
+      data: form.serialize()
+    })
+    .done(function(data){
+      displayMovies(data);
+    });
   });
 
   function displayMovies(data){
+    container = $("#movies");
     let htmlString = "";
-    
-    movies = data["Search"]; 
+    container.empty();
 
-    movies.forEach (function (movie) {
-      htmlString += `
-      <img src=${movie["Poster"]}/>
-      <p>${movie["Title"]}</p>
-      <p>${movie["Year"]}</p>
+    if (data["Response"] == "False") {
+      htmlString = `
+      <div class="alert alert-danger text-center" role="alert">${data["Error"]}</div>
       `;
-    });
+    } else {
 
-    $("#movies").append(htmlString);
+      data["Search"].forEach (function(movie) {
+        htmlString += `
+        <img src=${ movie["Poster"] == "N/A" ? "/assets/not-found.png" : movie["Poster"] } />
+        <p>${movie["Title"]}</p>
+        <p>${movie["Year"]}</p>`;
+      });
+    }
+
+    container.append(htmlString);
   }
 });
