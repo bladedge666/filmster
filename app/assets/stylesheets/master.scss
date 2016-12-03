@@ -1,5 +1,5 @@
 $brand-font: 'Amatica SC', cursive;
-$primary-font: 'Overlock';
+$primary-font: 'Open sans';
 
 html, body {
   height: 100%;  
@@ -8,7 +8,7 @@ html, body {
 }
 
 .navbar-default .navbar-brand {
-  font-family: $primary-font;
+  font-family: $brand-font;
   font-size: 40px;
   font-weight: 600;
   letter-spacing: 4px;

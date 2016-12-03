@@ -53,28 +53,35 @@ $(function () {
 
   });
 
-  function displayMovie(data) {
-    container = $("#movies");
+  
+  function displayMovie(data){
+    let container = $("#movies")
     let htmlString = "";
     container.empty();
 
-    if (data["Response"] == "False") {
-      htmlString = `
-      <div class="alert alert-danger text-center" role="alert">${data["Error"]}</div>
-      `;
-    } else {
+    htmlString += `
+    <img style="width:100px" src=${data["Poster"] == "N/A" ? "http://www.reelviews.net/resources/img/default_poster.jpg" : data["Poster"]}  />
+    <p>Title :  ${data["Title"]}</p>
+    <p>Year:  ${data["Year"]}</p>
+    <p> ${data["Plot"]}</p>                         
+    <p>Released : ${data["Released"]}</p>
+    <p>Runtime : ${data["Runtime"]}</p>
+    <p>Genre : ${data["Genre"]}</p>
+    <p>Director : ${data["Director"]}</p>
+    <p>Writter : ${data["Writer"]}</p>
+    <p>Actors : ${data["Actors"]}</p>
+    <p>Language : ${data["Language"]}</p>
+    <p>Country : ${data["Country"]}</p>
+    <p>Awards : ${data["Awards"]}</p>
 
-      htmlString += `<img src=${ data["Poster"] == "N/A" ? "/assets/not-found.png" : data["Poster"] } alt="${data["Title"]}" />`;
-      let count = 0;
-      for (let k in data) {
-        if (k == "imdbID") continue;
-        console.log(k);
-        if (count++ >= 12) break;
-        htmlString += `<p>${ k + ": " + data[k]}</p>`;
-      }
-
-    }
-
+    <form id="rating-form" action="/reviews" method="POST">
+    <input type="hidden" name="authenticity_token" value=${window._token} />
+    <input type="hidden" name="imdbid" value=${data["imdbID"]} />
+    <textarea name= "review[comment]" class="form-control" placeholder="Your movie review"/>
+    <br />
+    <input type="submit" class="btn btn-success pull-right" />
+    </form>`;
+    
     container.append(htmlString);
   }
 
