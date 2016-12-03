@@ -15,5 +15,8 @@ module Filmster
       g.helper false
       g.assets false
     end
+
+    # Load services
+    config.autoload_paths << Rails.root.join('services')
   end
 end
