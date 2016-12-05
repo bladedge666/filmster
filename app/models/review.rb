@@ -3,4 +3,6 @@ class Review < ApplicationRecord
   belongs_to :movie
 
   validates_presence_of :user, :movie, :comment
+
+  delegate :username, to: :user, prefix: true
 end

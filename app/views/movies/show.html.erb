@@ -20,18 +20,18 @@
 
       <h2> Reviews </h2>
 
-      <% if @movie.reviews.size > 0 %>
+      <% if @movie.reviews_size > 0 %>
 
-      <% @movie.reviews.each do |review| %>
-        <blockquote>
-          <p> <%= review.comment %> </p>
-          <small>  by <%= review.user.username %> </small>
-        </blockquote>
+        <% @movie.reviews.each do |review| %>
+          <blockquote>
+            <p> <%= review.comment %> </p>
+            <small>  by <%= review.user_username %> </small>
+          </blockquote>
 
-        <% if current_user == review.user %>
-          <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
+          <% if current_user == review.user %>
+            <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
+          <% end %>
         <% end %>
-      <% end %>
 
       <% else %>
         <h3><p> There are no reviews yet </p></h3>
