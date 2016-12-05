@@ -7,4 +7,9 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
 
   has_many :reviews
+
+  def reviewed?(movie)
+    self.reviews.exists?(movie_id: movie.id)
+  end
+
 end

@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="text-center ">
+        <%= image_tag @movie.poster == "N/A" ? "/assets/not-found.png" : @movie.poster, class: "movie-poster" %>
+      </div>
+
+      <p>Title : <%= @movie.title %> </p>
+      <p>Year:  <%= @movie.year %> </p>
+      <p> <%= @movie.plot %> </p>                         
+      <p>Released : <%= @movie.released %> </p>
+      <p>Runtime : <%= @movie.runtime %> </p>
+      <p>Genre : <%= @movie.genre %></p>
+      <p>Director : <%= @movie.director %></p>
+      <p>Writter : <%= @movie.writer %></p>
+      <p>Actors : <%= @movie.actors %></p>
+      <p>Language : <%= @movie.language %></p>
+      <p>Country : <%= @movie.country %> </p>
+      <p>Awards : <%= @movie.awards %> </p>
+
+      <h2> Reviews </h2>
+
+      <% if @movie.reviews.size > 0 %>
+
+      <% @movie.reviews.each do |review| %>
+        <blockquote>
+          <p> <%= review.comment %> </p>
+          <small>  by <%= review.user.username %> </small>
+        </blockquote>
+
+        <% if current_user == review.user %>
+          <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
+        <% end %>
+      <% end %>
+
+      <% else %>
+        <h3><p> There are no reviews yet </p></h3>
+      <% end %>
+
+      <br>
+      <br>
+
+      <% if user_signed_in? && unless current_user.reviewed?(@movie) %>
+        <h4>Create your review!</h4>
+        <form id="rating-form" action="/reviews" method="POST">
+          <input type="hidden" name="authenticity_token" value=${window._token} />
+          <input type="hidden" name="imdbid" value=<%= @movie.imdbid %> />
+          <textarea name= "review[comment]" class="form-control" placeholder="Your movie review"></textarea>
+          <br>
+          <input type="submit" class="btn btn-success" />
+        </form>
+      <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
