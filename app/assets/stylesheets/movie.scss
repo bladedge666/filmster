@@ -1,5 +1,10 @@
 .movie-poster {
-  width: 300px;
-  padding: 20px;
+  width: auto;
   margin-bottom: 40px;
+  border-radius: 10%;
+}
+
+.about-movie {
+  padding: 20px;
+  text-align: justify;
 }

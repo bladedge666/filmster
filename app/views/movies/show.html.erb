@@ -1,23 +1,22 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
+
       <div class="text-center ">
         <%= image_tag @movie.poster == "N/A" ? "/assets/not-found.png" : @movie.poster, class: "movie-poster" %>
       </div>
-
-      <p>Title : <%= @movie.title %> </p>
-      <p>Year:  <%= @movie.year %> </p>
-      <p> <%= @movie.plot %> </p>                         
-      <p>Released : <%= @movie.released %> </p>
-      <p>Runtime : <%= @movie.runtime %> </p>
-      <p>Genre : <%= @movie.genre %></p>
-      <p>Director : <%= @movie.director %></p>
-      <p>Writter : <%= @movie.writer %></p>
-      <p>Actors : <%= @movie.actors %></p>
-      <p>Language : <%= @movie.language %></p>
-      <p>Country : <%= @movie.country %> </p>
-      <p>Awards : <%= @movie.awards %> </p>
-
+      
+      <div class="about-movie">
+        <h2>Title : <%= @movie.title %> </h2>
+        <p>Year:  <%= @movie.year %> </p>
+        <p>Plot:  <%= @movie.plot %> </p>                         
+        <p>Released : <%= @movie.released %> </p>
+        <p>Runtime : <%= @movie.runtime %> </p>
+        <p>Genre : <%= @movie.genre %></p>
+        <p>Director : <%= @movie.director %></p>
+        <p>Writter : <%= @movie.writer %></p>
+        <p>Actors : <%= @movie.actors %></p>
+        <p>Language : <%= @movie.language %></p>
+        <p>Country : <%= @movie.country %> </p>
+        <p>Awards : <%= @movie.awards %> </p>
+      </div>
       <h2> Reviews </h2>
 
       <% if @movie.reviews_size > 0 %>
@@ -51,7 +50,3 @@
         </form>
       <% end %>
       <% end %>
-    </div>
-
-  </div>
-</div>

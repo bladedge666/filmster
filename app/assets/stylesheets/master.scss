@@ -1,10 +1,15 @@
 $brand-font: "Amatica SC", cursive;
 $primary-font: "Open sans", sans-serif;
+$footer-height: 45px;
 
 html, body {
   height: 100%;  
   font-family: $primary-font;
   font-size: 16px;
+}
+
+.navbar {
+  background: white;
 }
 
 .navbar-default .navbar-brand {
@@ -22,3 +27,20 @@ html, body {
   font-weight: bold;
   letter-spacing: 2px;
 }
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  // height: auto;
+  /* Negative indent footer by its height */
+}
+
+.footer span {
+  letter-spacing: 3px; 
+  font-size: 20px;
+}
+
