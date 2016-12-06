@@ -18,10 +18,10 @@ $(function () {
 // ---------------Display all the movies------------------------- //
 
 function displayMovies(data) {
-  container = $("#movies");
+  // let container = $("#movies");
   let htmlString = "";
-  container.empty();
-
+  let $container = $("#movies");
+  $container.empty();
 
   if (data["Response"] == "False") {
     htmlString = `
@@ -30,6 +30,7 @@ function displayMovies(data) {
   } else {
 
     data["Search"].forEach (function(movie) {
+      // htmlString = "";
       htmlString += `
       <div class="grid-item">
       <img class="grid-item-img" src=${ movie["Poster"] == "N/A" ? "/assets/not-found.png" : movie["Poster"] } data-id=${ movie["imdbID"] } />
@@ -40,8 +41,8 @@ function displayMovies(data) {
     });
   }
 
-  container.append(htmlString);
-  masonryInit(container);
+  $container.append(htmlString);
+  // masonryInit(container);
 }
 
 
@@ -104,14 +105,3 @@ function displayMovie(data){
   }
 
 });
-
-
-
-
-
-
-
-
-
-
-

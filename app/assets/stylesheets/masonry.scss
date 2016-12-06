@@ -24,8 +24,8 @@
 }
 
 .grid-item {
-  // width: 200px;
-  // height: 300px;
+  width: 200px;
+  height: 300px;
   float: left;
   // background: #D26;
   border-radius: 10px;
@@ -36,8 +36,9 @@
 .grid-item-img {
   width: inherit;
   height: 260px;
-  border-radius: inherit;
-  padding: inherit;
+  // border-radius: inherit;
+  // padding: inherit;
+  border: 2px solid #dcdcdc;
 }
 
 .grid-item-para {
