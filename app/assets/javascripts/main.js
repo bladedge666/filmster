@@ -18,10 +18,10 @@ $(function () {
 // ---------------Display all the movies------------------------- //
 
 function displayMovies(data) {
-  // let container = $("#movies");
+  let container = $("#movies");
   let htmlString = "";
-  let $container = $("#movies");
-  $container.empty();
+  // let $container = $("#movies");
+  container.empty();
 
   if (data["Response"] == "False") {
     htmlString = `
@@ -32,7 +32,7 @@ function displayMovies(data) {
     data["Search"].forEach (function(movie) {
       // htmlString = "";
       htmlString += `
-      <div class="grid-item">
+      <div class="movie-container">
       <img class="grid-item-img" src=${ movie["Poster"] == "N/A" ? "/assets/not-found.png" : movie["Poster"] } data-id=${ movie["imdbID"] } />
       <p class="grid-item-para">
       ${movie["Title"]} <br> ${movie["Year"]}
@@ -41,8 +41,8 @@ function displayMovies(data) {
     });
   }
 
-  $container.append(htmlString);
-  // masonryInit(container);
+  container.append(htmlString);
+  masonryInit();
 }
 
 
@@ -94,12 +94,12 @@ function displayMovie(data){
 }
 
   // Masonry init
-  function masonryInit (container) {
-    var $container = $(container);
+  function masonryInit () {
+    let $container = $("#movies");
     
     $container.imagesLoaded(function() {
       $container.masonry({
-        itemSelector : '.grid-item',
+        itemSelector : '.movie-container',
       });
     });
   }
