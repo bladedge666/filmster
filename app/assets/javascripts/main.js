@@ -18,10 +18,11 @@ $(function () {
 // ---------------Display all the movies------------------------- //
 
 function displayMovies(data) {
-  let container = $("#movies");
+  let $container = $("#movies");
   let htmlString = "";
+
   // let $container = $("#movies");
-  container.empty();
+  $container.empty();
 
   if (data["Response"] == "False") {
     htmlString = `
@@ -33,16 +34,37 @@ function displayMovies(data) {
       // htmlString = "";
       htmlString += `
       <div class="movie-container">
-      <img class="grid-item-img" src=${ movie["Poster"] == "N/A" ? "/assets/not-found.png" : movie["Poster"] } data-id=${ movie["imdbID"] } />
+      <img class="img-responsive center-block" src=${ movie["Poster"] == "N/A" ? "/assets/not-found.png" : movie["Poster"] } data-id=${ movie["imdbID"] } />
+      
+      <div class="movie-container-details">
       <p class="grid-item-para">
       ${movie["Title"]} <br> ${movie["Year"]}
       </p>
+      </div>
       </div>`;
     });
   }
 
-  container.append(htmlString);
-  masonryInit();
+  $container.imagesLoaded(function(){
+    $container.masonry({
+      itemSelector : '.movie-container',
+      columnWidth: 200,
+      "gutter": 20
+    });  
+  });
+  // $container.append(htmlString);
+  $container.masonry()
+  .append( htmlString )
+  .masonry( 'appended', htmlString )
+  .masonry();
+
+  $container.imagesLoaded(function(){
+    $container.masonry( 'reloadItems' );
+    $container.masonry( 'layout' );
+  });
+
+  // masonryInit(container);
+
 }
 
 
@@ -94,13 +116,20 @@ function displayMovie(data){
 }
 
   // Masonry init
-  function masonryInit () {
-    let $container = $("#movies");
-    
+  function masonryInit (container) {
+    let $container = $(container);
+
     $container.imagesLoaded(function() {
       $container.masonry({
         itemSelector : '.movie-container',
+        columnWidth: 200,
+        "gutter": 20
       });
+    });
+
+    $container.masonry( 'reloadItems' );
+    $container.imagesLoaded(function(){
+      $container.masonry( 'layout' );
     });
   }
 

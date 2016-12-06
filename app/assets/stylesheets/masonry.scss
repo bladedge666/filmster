@@ -18,24 +18,24 @@
 
 .movie-container {
   width: 200px;
-  height: 300px;
+  // height: 300px;
   float: left;
-  // background: #D26;
-  border-radius: 10px;
-  margin: 4px;
-  padding: 0 0 3px 0;
-}
-
-.grid-item-img {
-  width: inherit;
-  height: 260px;
-  // border-radius: inherit;
-  // padding: inherit;
+  margin-bottom:20px;
+  text-align: center;
   border: 2px solid #dcdcdc;
 }
 
+.movie-container-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 3px;
+}
+
 .grid-item-para {
-  font-size: 10px;
-  width: 200px;
-  // margin: 7px;
+  // width: inherit;
+  font-size: 14px;
 }
