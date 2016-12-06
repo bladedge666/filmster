@@ -39,8 +39,11 @@ html, body {
   /* Negative indent footer by its height */
 }
 
+.footer {
+  margin-top: 30px;
+}
+
 .footer span {
   letter-spacing: 3px; 
   font-size: 20px;
 }
-

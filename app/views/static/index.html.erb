@@ -1,18 +1,20 @@
-<h1>Find Movies</h1>
-
 <div class="row">
-  <form id="movie-search">
-    <div class="col-xs-4">
-      <input type="text" name="s" class="form-control" placeholder="Enter Movie Name">
-    </div>
-    <div class="col-xs-2">
-      <button type="submit" class="btn btn-success">Submit</button>
-    </div>
-  </form>
+  <h1>Find Movies</h1>
 
+  <div class="row">
+    <form id="movie-search">
+      <div class="col-xs-4">
+        <input type="text" name="s" class="form-control" placeholder="Enter Movie Name">
+      </div>
+      <div class="col-xs-2">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-<div class="col-xs-8 col-md-6">
-  <div id="movies">
+<div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 160 }'>
+  <div id="movies" class="grid">
 
   </div>
 </div>

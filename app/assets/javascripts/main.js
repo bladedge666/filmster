@@ -28,9 +28,12 @@ $(function () {
 
       data["Search"].forEach (function(movie) {
         htmlString += `
-        <img src=${ movie["Poster"] == "N/A" ? "/assets/not-found.png" : movie["Poster"] } data-id=${ movie["imdbID"] } />
-        <p>${movie["Title"]}</p>
-        <p>${movie["Year"]}</p>`;
+        <div class="grid-item--width2">
+          <img class="grid-item-img" src=${ movie["Poster"] == "N/A" ? "/assets/not-found.png" : movie["Poster"] } data-id=${ movie["imdbID"] } />
+          <p class="grid-item-para">
+            ${movie["Title"]} <br> ${movie["Year"]}
+          </p>
+        </div>`;
       });
     }
 
@@ -60,7 +63,7 @@ $(function () {
     container.empty();
 
     htmlString += `
-    <img style="width:100px" src=${data["Poster"] == "N/A" ? "http://www.reelviews.net/resources/img/default_poster.jpg" : data["Poster"]}  />
+    <img src=${data["Poster"] == "N/A" ? "http://www.reelviews.net/resources/img/default_poster.jpg" : data["Poster"]}  />
     <p>Title :  ${data["Title"]}</p>
     <p>Year:  ${data["Year"]}</p>
     <p> ${data["Plot"]}</p>                         
@@ -84,5 +87,8 @@ $(function () {
     
     container.append(htmlString);
   }
+
+  // Masonry init
+
 
 });
