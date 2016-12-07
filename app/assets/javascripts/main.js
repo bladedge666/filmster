@@ -1,6 +1,19 @@
 
 $(function () {
 
+  let $container = $("#movies");
+
+  let $grid = $container.masonry({
+    itemSelector : '.movie-container',
+      columnWidth: 200,
+      "gutter": 20
+  })
+
+  $grid.imagesLoaded().progress( function(){
+    $grid.masonry('layout');
+  })
+
+
   let form = $('#movie-search');
   form.submit(function(e){
     e.preventDefault();
@@ -45,21 +58,15 @@ function displayMovies(data) {
     });
   }
 
-  $container.imagesLoaded(function(){
-    $container.masonry({
-      itemSelector : '.movie-container',
-      columnWidth: 200,
-      "gutter": 20
-    });  
-  });
-  // $container.append(htmlString);
-  $container.masonry()
-  .append( htmlString )
-  .masonry( 'appended', htmlString )
-  .masonry();
+ 
+  $container.append(htmlString);
+  // $container.masonry('')
+  // .append( htmlString )
+  // .masonry( 'appended', htmlString )
+  // .masonry();
+  $container.masonry( 'reloadItems' );
 
   $container.imagesLoaded(function(){
-    $container.masonry( 'reloadItems' );
     $container.masonry( 'layout' );
   });
 
