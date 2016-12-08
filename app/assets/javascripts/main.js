@@ -5,8 +5,8 @@ $(function () {
 
   let $grid = $container.masonry({
     itemSelector : '.movie-container',
-      columnWidth: 200,
-      "gutter": 20
+    columnWidth: 200,
+    "gutter": 20
   })
 
   $grid.imagesLoaded().progress( function(){
@@ -58,26 +58,20 @@ function displayMovies(data) {
     });
   }
 
- 
+
   $container.append(htmlString);
-  // $container.masonry('')
-  // .append( htmlString )
-  // .masonry( 'appended', htmlString )
-  // .masonry();
   $container.masonry( 'reloadItems' );
 
   $container.imagesLoaded(function(){
     $container.masonry( 'layout' );
   });
-
-  // masonryInit(container);
-
 }
 
 
 $('#movies').on('click', 'img', function(element){
   element.preventDefault();
-
+  
+    // console.log(”BANANANANANA”);
   let id = $(element.target).data('id');
 
   $.ajax({
@@ -97,7 +91,7 @@ function displayMovie(data){
   container.empty();
 
   htmlString += `
-  <img style="height:200px;" src=${data["Poster"] == "N/A" ? "http://www.reelviews.net/resources/img/default_poster.jpg" : data["Poster"]}  />
+  <img class="img-responsive center-block" style="height:200px;" src=${data["Poster"] == "N/A" ? "http://www.reelviews.net/resources/img/default_poster.jpg" : data["Poster"]}  />
   <p>Title :  ${data["Title"]}</p>
   <p>Year:  ${data["Year"]}</p>
   <p> ${data["Plot"]}</p>                         
@@ -121,23 +115,5 @@ function displayMovie(data){
 
   container.append(htmlString);
 }
-
-  // Masonry init
-  function masonryInit (container) {
-    let $container = $(container);
-
-    $container.imagesLoaded(function() {
-      $container.masonry({
-        itemSelector : '.movie-container',
-        columnWidth: 200,
-        "gutter": 20
-      });
-    });
-
-    $container.masonry( 'reloadItems' );
-    $container.imagesLoaded(function(){
-      $container.masonry( 'layout' );
-    });
-  }
 
 });

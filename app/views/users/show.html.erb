@@ -1,0 +1,70 @@
+<%= image_tag @user.avatar.present? ? @user.avatar : "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSknvaquxG5ns-RO-bB3e3JsloyPtEwBSKlc2dml0-l2jlk5jGi", class: "prof-pic-lg" %>
+<% if current_user == @user %>
+<div class="edit-profile">
+  <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-info" %>
+</div>
+<% end %>
+<h1 class="text-center"><%= @user.username %></h1>
+<p class="text-center lead"><%= @user.introduction %></p>
+
+<div id="prof-summary">
+  <%= render partial: "shared/profile_summary" %>
+</div>
+
+<br>
+
+<div id="reviewed-movies">
+
+</div>
+
+<script type="text/javascript">
+
+  $(function() {
+    let $grid = $('#reviewed-movies').masonry({
+    // options
+    itemSelector: '.movie-container',
+    columnWidth: 200, 
+    "gutter": 20
+   });
+
+    let userId = `<%= @user.id %>`;
+    var userData = {};  
+
+    $.ajax({
+      url: `/users/${userId}.json`,
+      type: "GET"
+    })
+    .done(function(data){
+      userData = data;
+      getReviews();
+    });
+
+    function getReviews(){
+      $container = $("#reviewed-movies");
+
+      htmlString = "";
+
+      userData.reviews.forEach(function(review){
+        htmlString += `
+        <div class="movie-container">
+          <a href="/movies/${review.movie.imdbid}" >
+            <img class="img-responsive center-block" src=${ review["movie"]["poster"] == "N/A" ? "/assets/not-found.png" : review["movie"]["poster"] }/>
+          </a>
+          <div class="movie-container-details">
+            <h3>${review.movie.title}</h3>
+            <p>${review.comment}</p>
+          </div>
+        </div>`;
+      });
+
+      $container.empty();
+      $container.append(htmlString);
+
+      $container.masonry( 'reloadItems' );
+      
+      $container.imagesLoaded(function(){
+        $container.masonry( 'layout' );
+      });
+    }
+  });
+</script>

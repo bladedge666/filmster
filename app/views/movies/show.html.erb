@@ -1,5 +1,7 @@
-
-      <div class="text-center ">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <div class="text-center">
         <%= image_tag @movie.poster == "N/A" ? "/assets/not-found.png" : @movie.poster, class: "movie-poster" %>
       </div>
       
@@ -17,36 +19,45 @@
         <p>Country : <%= @movie.country %> </p>
         <p>Awards : <%= @movie.awards %> </p>
       </div>
-      <h2> Reviews </h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-1">
+
+      <h2 class="lean"> Reviews </h2>
 
       <% if @movie.reviews_size > 0 %>
 
-        <% @movie.reviews.each do |review| %>
-          <blockquote>
-            <p> <%= review.comment %> </p>
-            <small>  by <%= review.user_username %> </small>
-          </blockquote>
+      <% @movie.reviews.each do |review| %>
+      <blockquote>
+        <p> <%= review.comment %> </p>
+        <small>  by <%= review.user_username %> </small>
+      </blockquote>
 
-          <% if current_user == review.user %>
-            <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
-          <% end %>
-        <% end %>
+      <% if current_user == review.user %>
+      <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
+      <% end %>
+      <% end %>
 
       <% else %>
-        <h3><p> There are no reviews yet </p></h3>
+      <h3><p> There are no reviews yet </p></h3>
       <% end %>
 
       <br>
       <br>
 
       <% if user_signed_in? && unless current_user.reviewed?(@movie) %>
-        <h4>Create your review!</h4>
-        <form id="rating-form" action="/reviews" method="POST">
-          <input type="hidden" name="authenticity_token" value=${window._token} />
-          <input type="hidden" name="imdbid" value=<%= @movie.imdbid %> />
-          <textarea name= "review[comment]" class="form-control" placeholder="Your movie review"></textarea>
-          <br>
-          <input type="submit" class="btn btn-success" />
-        </form>
+      <h4>Create your review!</h4>
+      <form id="rating-form" action="/reviews" method="POST">
+        <input type="hidden" name="authenticity_token" value=${window._token} />
+        <input type="hidden" name="imdbid" value=<%= @movie.imdbid %> />
+        <textarea name= "review[comment]" class="form-control" placeholder="Your movie review"></textarea>
+        <br>
+        <input type="submit" class="btn btn-success" />
+      </form>
       <% end %>
       <% end %>
+    </div>
+  </div>
+</div>
