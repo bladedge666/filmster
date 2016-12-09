@@ -1,10 +1,10 @@
 <%= image_tag @user.avatar.present? ? @user.avatar : "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSknvaquxG5ns-RO-bB3e3JsloyPtEwBSKlc2dml0-l2jlk5jGi", class: "prof-pic-lg" %>
 <% if current_user == @user %>
+<h1 class="text-center"><%= @user.username %></h1>
 <div class="edit-profile">
   <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-info" %>
 </div>
 <% end %>
-<h1 class="text-center"><%= @user.username %></h1>
 <p class="text-center lead"><%= @user.introduction %></p>
 
 <div id="prof-summary">
@@ -25,10 +25,13 @@
     itemSelector: '.movie-container',
     columnWidth: 200, 
     "gutter": 20
-   });
+  });
 
     let userId = `<%= @user.id %>`;
     var userData = {};  
+
+
+
 
     $.ajax({
       url: `/users/${userId}.json`,
@@ -39,6 +42,18 @@
       getReviews();
     });
 
+     $('#user-reviews').on('click', function(e) {
+      getReviews();
+    }); 
+
+    $('#user-following').on('click', function(e) {
+      getFollowing();
+    });
+
+     $('#user-followers').on('click', function(e) {
+      getFollowers();
+    });
+
     function getReviews(){
       $container = $("#reviewed-movies");
 
@@ -46,6 +61,7 @@
 
       userData.reviews.forEach(function(review){
         htmlString += `
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
         <div class="movie-container">
           <a href="/movies/${review.movie.imdbid}" >
             <img class="img-responsive center-block" src=${ review["movie"]["poster"] == "N/A" ? "/assets/not-found.png" : review["movie"]["poster"] }/>
@@ -54,6 +70,7 @@
             <h3>${review.movie.title}</h3>
             <p>${review.comment}</p>
           </div>
+        </div>
         </div>`;
       });
 
@@ -66,5 +83,59 @@
         $container.masonry( 'layout' );
       });
     }
+
+    function getFollowing(){
+
+      if (userData.following_relationships.length > 0) {
+        htmlString = `<div class="col-xs-12 col-md-6 col-md-offset-3">
+        <ul class="user-relationship-list">`;
+
+          userData.following_relationships.forEach(function(following_relationship){
+            htmlString += `<li>
+            <img src=${following_relationship.user.avatar_url} class="prof-pic-sm" />
+            <a href="/users/${following_relationship.user.id}"><strong>${following_relationship.user.username}</strong></a>
+            <p class="user-introduction">${following_relationship.user.introduction == null ? "" : following_relationship.user.introduction}</p>
+          </li>`;
+        });
+
+          htmlString += "</ul></div>";
+        }
+        else {
+          htmlString = "<h3 class='text-center'>This user has not followed any users yet</h3>";
+        }
+
+
+        $container.empty();
+        $container.append(htmlString);
+
+      }
+
+    function getFollowers(){
+
+      if (userData.followed_relationships.length > 0) {
+        htmlString = `<div class="col-xs-12 col-md-6 col-md-offset-3">
+        <ul class="user-relationship-list">`;
+
+          userData.followed_relationships.forEach(function(followed_relationship){
+            htmlString += `<li>
+            <img src=${followed_relationship.user.avatar_url} class="prof-pic-sm" />
+            <a href="/users/${followed_relationship.user.id}"><strong>${followed_relationship.user.username}</strong></a>
+            <p class="user-introduction">${followed_relationship.user.introduction == null ? "" : followed_relationship.user.introduction}</p>
+          </li>`;
+        });
+
+          htmlString += "</ul></div>";
+        }
+        else {
+          htmlString = "<h3 class='text-center'>No user has followed this user yet</h3>";
+        }
+
+
+        $container.empty();
+        $container.append(htmlString);
+
+    }
   });
-</script>
+
+
+  </script>

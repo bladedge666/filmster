@@ -22,10 +22,9 @@ class RelationshipsController < ApplicationController
 
   def check_user
     @user = User.find(params[:user_id])
-    if @user == current_user
-      flash[:alert] = "You cannot follow yourself"
-      redirect_to @user
-    end
+    return unless @user == current_user
+    flash[:alert] = "You cannot follow yourself"
+    redirect_to @user  
   end
 
 end
