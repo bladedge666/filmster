@@ -36,4 +36,8 @@ class User < ApplicationRecord
     following_relationships.exists?(followed_id: other_user.id)
   end
 
+  def upvote(review)
+    upvotes.create(review_id: review.id)
+  end
+
 end

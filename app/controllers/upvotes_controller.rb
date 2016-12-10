@@ -4,7 +4,7 @@ class UpvotesController < ApplicationController
   def create
     @review = Review.find(params[:review_id])
 
-    current_user.upvotes.create(review_id: @review.id)
+    current_user.upvote(@review)
 
     respond_to do |format|
       format.html { redirect_to :back}
