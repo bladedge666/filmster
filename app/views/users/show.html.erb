@@ -30,9 +30,6 @@
     let userId = `<%= @user.id %>`;
     var userData = {};  
 
-
-
-
     $.ajax({
       url: `/users/${userId}.json`,
       type: "GET"

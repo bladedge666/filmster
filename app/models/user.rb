@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :following_users, through: :following_relationships, source: :followed
   has_many :followed_users, through: :followed_relationships, source: :follower
 
+  has_many :upvotes, through: :reviews
+  
   def reviewed?(movie)
     self.reviews.exists?(movie_id: movie.id)
   end
@@ -33,4 +35,5 @@ class User < ApplicationRecord
   def following?(other_user)
     following_relationships.exists?(followed_id: other_user.id)
   end
+
 end

@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   root 'static#index'
 
-  resources :reviews
-
+  resources :reviews do
+    resources :upvotes, only: :create
+  end
+  
   resources :movies, only: :show
 
   resources :users, only: :show do
