@@ -1,4 +1,5 @@
 <%= review.upvotes.count %> votes 
 
-<%= link_to '+1 upvote', review_upvotes_path(review.id), method: :post, class: "btn", remote: true %>
+
+<%= link_to 'Upvote', review_upvotes_path(review.id), method: :post, class: "btn", remote: true %>
 
