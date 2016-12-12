@@ -13,7 +13,8 @@ class ReviewsController < ApplicationController
       flash[:alert] = "Woops! It seems there was an error."
     end
 
-    redirect_to @movie
+    # redirect_to @movie
+    redirect_to :controller => "movies", :action => "show", :id => params[:imdbid]
     
   end
 
