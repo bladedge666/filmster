@@ -1,1 +1,1 @@
-$('#upvote-count').html("<%= escape_javascript render partial: 'shared/up', locals: {review: @review} %>")
+$("#upvote-count-<%= @review.id %>").html("<%= escape_javascript render partial: 'shared/up', locals: {review: @review} %>")

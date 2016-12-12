@@ -35,15 +35,15 @@
           <p> <%= review.comment %> </p>
           <small>  
             by <%= review.user_username %> 
-            <div id="upvote-count">
+            <div id="upvote-count-<%= review.id %>">
               <%= render partial: "shared/up", locals: {review: review} %>
             </div>
           </small>
         </blockquote>
       </div>
-      <% if current_user == review.user %>
-      <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
-      <% end %>
+        <% if current_user == review.user %>
+          <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
+        <% end %>
       <% end %>
 
       <% else %>
