@@ -13,7 +13,8 @@ gem 'devise'
 gem 'simple_form'
 gem 'carrierwave'
 gem 'omdb-api'
-
+gem 'font-awesome-sass', '~> 4.7.0'
+gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
 
 gem 'rails_12factor', group: [:production]
 

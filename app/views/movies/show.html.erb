@@ -1,69 +1,74 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <div class="text-center">
-        <%= image_tag @movie.poster == "N/A" ? "/assets/not-found.png" : @movie.poster, class: "movie-poster" %>
-      </div>
-      
-      <div class="about-movie">
-        <h2>Title : <%= @movie.title %> </h2>
-        <p>Year:  <%= @movie.year %> </p>
-        <p>Plot:  <%= @movie.plot %> </p>                         
-        <p>Released : <%= @movie.released %> </p>
-        <p>Runtime : <%= @movie.runtime %> </p>
-        <p>Genre : <%= @movie.genre %></p>
-        <p>Director : <%= @movie.director %></p>
-        <p>Writter : <%= @movie.writer %></p>
-        <p>Actors : <%= @movie.actors %></p>
-        <p>Language : <%= @movie.language %></p>
-        <p>Country : <%= @movie.country %> </p>
-        <p>Awards : <%= @movie.awards %> </p>
+    <div class="col-xs-12 col-md-6">
+      <div class="layout-border">
+        <div class="text-center">
+          <h1><%= @movie.title %> 
+            <span class="movie-rating"><%= icon('star') %><span class="movie-rating-score"><%= @movie.imdbrating %></span>/10</span>
+            <span class="movie-votes">(<%= @movie.imdbvotes %>)</span>
+          </h1>
+          <ul class="movie-info">
+            <li><%= @movie.rated %></li>
+            <li><%= @movie.runtime %></li>
+            <li><%= @movie.genre %></li>
+            <li><%= @movie.released %></li>
+          </ul>
+          <%= image_tag @movie.poster == "N/A" ? "/assets/not-found.png" : @movie.poster, class: "movie-poster" %>
+        </div>
+
+        <div class="about-movie">
+          <p><%= truncate(@movie.plot, length: 100) %> </p>                         
+          <p><strong>Year:</strong>  <%= @movie.year %> </p>
+          <p><strong>Director:</strong> <%= @movie.director %></p>
+          <p><strong>Writter:</strong> <%= @movie.writer %></p>
+          <p><strong>Actors: </strong><%= @movie.actors %></p>
+          <p><strong>Awards:</strong> <%= @movie.awards %> </p>
+          <p><strong>Language:</strong> <%= @movie.language %></p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1">
+    <div class="col-xs-12 col-md-6">
+      <div class="layout-border">
+        <h2> Reviews </h2>
 
-      <h2> Reviews </h2>
+        <% if @movie.reviews_size > 0 %>
 
-      <% if @movie.reviews_size > 0 %>
-
-      <% @movie.reviews.each do |review| %>
-      <div id="review-comment">
-        <blockquote>
-          <p> <%= review.comment %> </p>
-          <small>  
-            by <%= review.user_username %> 
-            <div id="upvote-count-<%= review.id %>">
-              <%= render partial: "shared/up", locals: {review: review} %>
-            </div>
-          </small>
-        </blockquote>
-      </div>
-        <% if current_user == review.user %>
-          <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
+        <% @movie.reviews.each do |review| %>
+        <hr>
+          <div id="review-comment">
+            <blockquote>
+              <p> <%= review.comment %> </p>
+              <small>  
+              <%= link_to review.user_username.capitalize, review.user, class: "uname" %> 
+                <div id="upvote-count-<%= review.id %>">
+                  <%= render partial: "shared/up", locals: {review: review} %>
+                </div>
+              </small>
+            </blockquote>
+          </div>
+          <% if current_user == review.user %>
+            <%= link_to "Delete", review, method: :delete, class: "btn btn-sm btn-danger" %>
+          <% end %>
         <% end %>
-      <% end %>
 
-      <% else %>
-      <h3><p> There are no reviews yet </p></h3>
-      <% end %>
+        <% else %>
+          <h3><p> There are no reviews yet </p></h3>
+        <% end %>
 
-      <br>
-      <br>
-
-      <% if user_signed_in? && unless current_user.reviewed?(@movie) %>
-      <h4>Create your review!</h4>
-      <form id="rating-form" action="/reviews" method="POST">
-        <input type="hidden" name="authenticity_token" value=${window._token} />
-        <input type="hidden" name="imdbid" value=<%= @movie.imdbid %> />
-        <textarea name= "review[comment]" class="form-control" placeholder="Your movie review"></textarea>
-        <br>
-        <input type="submit" class="btn btn-success" />
-      </form>
-      <% end %>
-      <% end %>
+        <% if user_signed_in? && unless current_user.reviewed?(@movie) %>
+        <hr>
+        <h4>Create your review!</h4>
+        <form id="rating-form" action="/reviews" method="POST">
+          <input type="hidden" name="authenticity_token" value=${window._token} />
+          <input type="hidden" name="imdbid" value=<%= @movie.imdbid %> />
+          <textarea name= "review[comment]" class="form-control" placeholder="Your movie review"></textarea>
+          <br>
+          <input type="submit" class="btn btn-success" />
+        </form>
+        <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
