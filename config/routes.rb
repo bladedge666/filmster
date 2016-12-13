@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'static#index'
-  get 'timeline' => "static#timeline", as: :timeline
+  get 'timeline' => "users#timeline", as: :timeline
 
   resources :reviews do
     resources :upvotes, only: :create
