@@ -11,6 +11,7 @@
       <div class="borderbottom"></div>
 
       <% User.all.sample(3).each do |user| %>
+        <% next if user == current_user %>
         <div class="users-you-might-follow">
           <a href="<%= user_path(user) %>" > <%= image_tag user.avatar.present? ? user.avatar : "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSknvaquxG5ns-RO-bB3e3JsloyPtEwBSKlc2dml0-l2jlk5jGi", class: "prof-pic-sm" %> </a>
           <div class="users-you-might-follow-each">
@@ -18,7 +19,7 @@
             <p><%= truncate(user.introduction, length: 20) %></p>
           </div>
         </div>
-        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
