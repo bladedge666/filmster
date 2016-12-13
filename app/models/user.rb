@@ -40,4 +40,9 @@ class User < ApplicationRecord
     upvotes.create(review_id: review.id)
   end
 
+  def self.get_random_users(curr_user)
+    # User.where.not(id: id).where.not(id: following_users.pluck(:id)).sample(3)
+    User.where.not(id: curr_user.id).where.not(id: curr_user.following_users.pluck(:id)).sample(3)
+  end
+
 end

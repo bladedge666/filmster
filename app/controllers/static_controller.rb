@@ -3,5 +3,4 @@ class StaticController < ApplicationController
     @movies = Movie.recent
     @recent_reviews = Review.recent
   end
-
 end

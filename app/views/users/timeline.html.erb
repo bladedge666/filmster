@@ -2,17 +2,16 @@
   <div class="row">
     <div class="col-xs-12 col-md-8">
       <h1 class="text-center">Timeline</h1>
-
       <div id="timeline-movies">
 
       </div>
     </div>  
     <div class="col-xs-12 col-md-4">
-      <h2>Users you might follow</h2>
-      <div class="borderbottom"></div>
+      <h3>Users you might follow</h3>
+      <hr>
 
-      <% User.all.sample(3).each do |user| %>
-        <% next if current_user == user || current_user.following_users.include?(user) %>
+      <% User.get_random_users(current_user).each do |user| %>
+        <% next if current_user.following_users.include?(user) %>
         <div class="users-you-might-follow">
           <a href="<%= user_path(user) %>" > <%= image_tag user.avatar.present? ? user.avatar : "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSknvaquxG5ns-RO-bB3e3JsloyPtEwBSKlc2dml0-l2jlk5jGi", class: "prof-pic-sm" %> </a>
           <div class="users-you-might-follow-each">
