@@ -59,3 +59,35 @@
   padding: 20px;
   border-bottom: 1px solid #dddddd;
 }
+
+.undecorated-username {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: none;
+    color: #ffd700;
+  }
+}
+
+.users-you-might-follow {
+  height: 84px;
+  padding: 4px 0;
+}
+
+.users-you-might-follow-each {
+  padding: 0 5px;
+  float: left;
+  display: block;
+  line-height: 2;
+}
+
+$gold: #ffd700;
+
+.uname {
+  text-decoration: none;
+  color: #aaaaaa;
+  &:hover {
+    color: $gold;
+    text-decoration: none;
+  }
+}

@@ -1,17 +1,73 @@
-<h1 class="text-center">Timeline</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8">
+      <h1 class="text-center">Timeline</h1>
 
-<div id="movies">
+      <div id="movies">
+      </div>
+    </div>  
+    <div class="col-xs-12 col-md-4">
+      <h2>Users you might follow</h2>
+      <div class="borderbottom"></div>
+
+      <% User.all.sample(3).each do |user| %>
+        <div class="users-you-might-follow">
+          <a href="<%= user_path(user) %>" > <%= image_tag user.avatar.present? ? user.avatar : "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSknvaquxG5ns-RO-bB3e3JsloyPtEwBSKlc2dml0-l2jlk5jGi", class: "prof-pic-sm" %> </a>
+          <div class="users-you-might-follow-each">
+            <%= link_to user.username.capitalize, user_path(user), class: "uname" %>
+            <p><%= truncate(user.introduction, length: 20) %></p>
+          </div>
+        </div>
+        <% end %>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
   $(function() {
-
-    $.ajax({
-      
-    })
-    .done(function(data){
-
+    let $grid = $('#reviewed-movies').masonry({
+    // options
+      itemSelector: '.movie-container',
+      columnWidth: 500, 
+      "gutter": 20
     });
 
+    $.ajax({
+      url: "/timeline.json",
+      type: "GET"
+    })
+    .done(function(data){
+      // data is a reviews array with review.user.username, review.movie, review.comment
+      displayTimeline(data);
+    });
+
+    function displayTimeline(dataObject) {
+      let $container = $("#movies");
+      let htmlString = "";
+
+      dataObject.reviews.forEach(function(review) {
+        htmlString += `
+        <div class="movie-container">
+          <a href="/movies/${review.movie.imdbid}" >
+            <img class="img-responsive center-block" src=${ review["movie"]["poster"] == "N/A" ? "/assets/not-found.png" : review["movie"]["poster"] }/>
+          </a>
+          <div class="movie-container-details">
+            <h3>${review.movie.title}</h3>
+            <p>${review.comment}</p>
+            <p><a href="/users/${review.user.id}" class="undecorated-username">${review.user.username}</a></p>
+          </div>
+        </div>
+        `;
+      });
+
+      $container.empty();
+      $container.append(htmlString);
+
+      $container.masonry( 'reloadItems' );
+      
+      $container.imagesLoaded(function(){
+        $container.masonry( 'layout' );
+      });
+    }
   });
 </script>

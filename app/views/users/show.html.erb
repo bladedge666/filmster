@@ -12,9 +12,10 @@
 </div>
 
 <br>
+<div class="container">
+  <div id="reviewed-movies">
 
-<div id="reviewed-movies">
-
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -24,7 +25,7 @@
     // options
     itemSelector: '.movie-container',
     columnWidth: 200, 
-    "gutter": 20
+    "gutter": 30
   });
 
     let userId = `<%= @user.id %>`;
@@ -58,7 +59,7 @@
 
       userData.reviews.forEach(function(review){
         htmlString += `
-        <div class="col-xs-12 col-md-6 col-md-offset-3">
+        
         <div class="movie-container">
           <a href="/movies/${review.movie.imdbid}" >
             <img class="img-responsive center-block" src=${ review["movie"]["poster"] == "N/A" ? "/assets/not-found.png" : review["movie"]["poster"] }/>
@@ -67,7 +68,6 @@
             <h3>${review.movie.title}</h3>
             <p>${review.comment}</p>
           </div>
-        </div>
         </div>`;
       });
 
