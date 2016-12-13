@@ -13,8 +13,10 @@
   </li>
 </ul>
 
+<% unless current_user.nil? %>
 <% if current_user.following?(@user) %>
   <%= link_to "Following", user_relationship_path(@user, current_user), method: :delete, class: "btn btn-danger btn-center", remote: true %>
 <% elsif current_user != @user %>
   <%= link_to "Follow", user_relationships_path(@user), method: :post, class: "btn btn-success btn-center", remote: true %>
+<% end %>
 <% end %>

@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
     if @review.destroy
       flash[:danger] = "Review deleted!"
     end
-    # redirect_to @movie
+    # redirect_to :controller => "movies", :action => "show", :id => params[:imdbid]
     redirect_to :back
   end
 
