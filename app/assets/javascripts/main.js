@@ -32,10 +32,12 @@ $(function () {
 
 function displayMovies(data) {
   let $container = $("#movies");
+  let $toHide = $("#movies-default");
   let htmlString = "";
 
   // let $container = $("#movies");
   $container.empty();
+  $toHide.remove();
 
   if (data["Response"] == "False") {
     htmlString = `
@@ -70,8 +72,6 @@ function displayMovies(data) {
 
 $('#movies').on('click', 'img', function(element){
   element.preventDefault();
-  
-    // console.log(”BANANANANANA”);
   let id = $(element.target).data('id');
 
   $.ajax({

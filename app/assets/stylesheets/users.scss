@@ -81,13 +81,10 @@
   line-height: 2;
 }
 
-$gold: #ffd700;
-
 .uname {
   text-decoration: none;
-  color: #aaaaaa;
+  color: #777777;
   &:hover {
-    color: $gold;
     text-decoration: none;
   }
 }

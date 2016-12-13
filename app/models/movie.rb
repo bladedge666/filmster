@@ -4,6 +4,8 @@ class Movie < ApplicationRecord
   has_many :reviews
 
   delegate :size, to: :reviews, prefix: true # from @movie.reviews.size to @movie.reviews_size
+
+  scope :recent, -> { order("created_at DESC").limit(20) }
 end
 
 
