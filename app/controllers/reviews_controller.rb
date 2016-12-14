@@ -20,12 +20,13 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review = current_user.reviews.find(params[:id])
-    @movie = @review.movie 
+    imdbid = @review.movie_imdbid # make sure to delegate this
+
     if @review.destroy
       flash[:danger] = "Review deleted!"
     end
-    # redirect_to :controller => "movies", :action => "show", :id => params[:imdbid]
-    redirect_to :back
+    # redirect_to :back
+    redirect_to "/movies/#{imdbid}"
   end
 
   private

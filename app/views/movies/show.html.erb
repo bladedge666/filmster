@@ -32,7 +32,7 @@
       <div class="layout-border">
         <h2> Reviews </h2>
 
-        <% if @movie.reviews_size > 0 %>
+        <% if @movie.reviews.any? %>
 
         <% @movie.reviews.each do |review| %>
         <hr>
