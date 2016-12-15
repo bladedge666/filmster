@@ -4,7 +4,7 @@ class RelationshipsController < ApplicationController
 
   def create
     current_user.follow(@user)
-    # UserMailer.followed_mail(@user, current_user).deliver_later ---- We used the model for after_create callback
+    UserMailer.followed_mail(user1:@user, user_who_is_following_user1: current_user).deliver_later #---- We used the model for after_create callback
 
     respond_to do |format|
       format.html { redirect_to @user}
