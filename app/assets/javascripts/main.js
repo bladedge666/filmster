@@ -20,7 +20,7 @@ $(function () {
 
     $.ajax({
       url: 'http://www.omdbapi.com/?',
-      data: form.serialize()
+      data: form.serialize() + 'apikey=cc06ebda'
     })
     .done(function(data){
       displayMovies(data);
